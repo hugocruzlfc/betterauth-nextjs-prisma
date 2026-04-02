@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Set up Prisma
+Next, you'll add Prisma to your project to manage your database.
 
-## Getting Started
+-Install Prisma and dependencies
+Install the necessary Prisma packages. The dependencies differ slightly depending on whether you use Prisma Postgres with Accelerate or another database.
 
-First, run the development server:
+npm
+pnpm
+yarn
+bun
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+pnpm add prisma tsx @types/pg --save-dev
+npm
+pnpm
+yarn
+bun
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+pnpm add @prisma/client @prisma/adapter-pg dotenv pg
+If you are using a different database provider (MySQL, SQL Server, SQLite), install the corresponding driver adapter package instead of @prisma/adapter-pg. For more information, see Database drivers.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Once installed, initialize Prisma in your project:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+npm
+pnpm
+yarn
+bun
 
-## Learn More
+pnpm dlx prisma init --output ../src/generated/prisma
 
-To learn more about Next.js, take a look at the following resources:
+Generate the Prisma client
+Run the following command to create the database tables and generate the Prisma Client:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+npm
+pnpm
+yarn
+bun
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+pnpm dlx prisma generate
 
-## Deploy on Vercel
+Add Better Auth models to your schema
+Better Auth provides a CLI command to automatically add the necessary authentication models (User, Session, Account, and Verification) to your schema.prisma file.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Run the following command:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+npm
+pnpm
+yarn
+bun
+
+pnpm dlx auth generate
+
+Migrate the database
+With the new models in your schema, you need to update your database. Run a migration to create the corresponding tables:
+
+npm
+pnpm
+yarn
+bun
+
+pnpm dlx prisma migrate dev --name add-auth-models
+npm
+pnpm
+yarn
+bun
+
+pnpm dlx prisma generate
