@@ -1,66 +1,40 @@
-Set up Prisma
-Next, you'll add Prisma to your project to manage your database.
+# 🧬 Prisma + Better Auth Setup
 
--Install Prisma and dependencies
-Install the necessary Prisma packages. The dependencies differ slightly depending on whether you use Prisma Postgres with Accelerate or another database.
+[![Node.js](https://img.shields.io/badge/node-%3E%3D20-brightgreen)]()
+[![pnpm](https://img.shields.io/badge/package%20manager-pnpm-orange)]()
+[![Prisma](https://img.shields.io/badge/ORM-Prisma-blue)]()
+[![Auth](https://img.shields.io/badge/Auth-BetterAuth-purple)]()
 
-npm
-pnpm
-yarn
-bun
+[Check out the full documentation for Better Auth](https://www.prisma.io/docs/guides/authentication/better-auth/nextjs)
 
+## Dev Dependencies
+
+```bash
 pnpm add prisma tsx @types/pg --save-dev
-npm
-pnpm
-yarn
-bun
-
 pnpm add @prisma/client @prisma/adapter-pg dotenv pg
-If you are using a different database provider (MySQL, SQL Server, SQLite), install the corresponding driver adapter package instead of @prisma/adapter-pg. For more information, see Database drivers.
+```
 
-Once installed, initialize Prisma in your project:
+## Initialize Prisma
 
-npm
-pnpm
-yarn
-bun
-
+```bash
 pnpm dlx prisma init --output ../src/generated/prisma
+```
 
-Generate the Prisma client
-Run the following command to create the database tables and generate the Prisma Client:
+## Generate the Prisma client
 
-npm
-pnpm
-yarn
-bun
-
+```bash
 pnpm dlx prisma generate
+```
 
-Add Better Auth models to your schema
-Better Auth provides a CLI command to automatically add the necessary authentication models (User, Session, Account, and Verification) to your schema.prisma file.
+## Add Better Auth models to your schema
 
-Run the following command:
-
-npm
-pnpm
-yarn
-bun
-
+```bash
 pnpm dlx auth generate
+```
 
-Migrate the database
-With the new models in your schema, you need to update your database. Run a migration to create the corresponding tables:
+## Migrate the database
 
-npm
-pnpm
-yarn
-bun
-
+```bash
 pnpm dlx prisma migrate dev --name add-auth-models
-npm
-pnpm
-yarn
-bun
-
 pnpm dlx prisma generate
+```
